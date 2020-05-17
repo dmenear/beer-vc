@@ -9,6 +9,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.beervc.beerxml.InvalidBeerXmlException;
 import com.beervc.beerxml.Recipes;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
@@ -24,8 +25,12 @@ public class RestEndpointController {
 		Recipes sampleRecipes;
 		try {
 			sampleRecipes = mapper.readValue(sampleXmlResource.getFile(), Recipes.class);
+			sampleRecipes.validateBeerXML();
 		} catch (IOException e) {
 			logger.error("Failed to parse BeerXML sample file!", e);
+			return null;
+		} catch (InvalidBeerXmlException e) {
+			logger.error("Failed to validate sample file!", e);
 			return null;
 		}
 		return sampleRecipes;

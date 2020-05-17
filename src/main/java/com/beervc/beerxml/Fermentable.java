@@ -6,16 +6,16 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 public class Fermentable {
 
 	private String name;
-	private Integer version;
+	private String version;
 	private String type;
-	private Double amount;
-	private Double yield;
-	private Double color;
-	private Boolean addAfterBoil;
+	private String amount;
+	private String yield;
+	private String color;
+	private String addAfterBoil;
 	private String origin;
 	private String supplier;
 	private String notes;
-	private Double coarseFineDiff;
-	private Double moisture;
+	private String coarseFineDiff;
+	private String moisture;
 	
 }

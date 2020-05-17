@@ -5,6 +5,7 @@ import java.util.List;
 import com.beervc.beerxml.annotations.BjcpRating;
 import com.beervc.beerxml.annotations.Percentage;
 import com.beervc.beerxml.annotations.Selection;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
@@ -12,6 +13,7 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 import lombok.Getter;
 import lombok.Setter;
 
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 @JacksonXmlRootElement(localName="RECIPE")
 public class Recipe extends BeerXMLElement {
 	
@@ -21,7 +23,7 @@ public class Recipe extends BeerXMLElement {
 	
 	@JacksonXmlProperty(localName="VERSION")
 	@Getter @Setter
-	private Integer version;
+	private String version;
 	
 	@Selection(options={ "EXTRACT", "PARTIAL MASH", "ALL GRAIN" }, friendlyName="Recipe Type", tag="RECIPE/TYPE")
 	@JacksonXmlProperty(localName="TYPE")
@@ -46,49 +48,49 @@ public class Recipe extends BeerXMLElement {
 	
 	@JacksonXmlProperty(localName="BATCH_SIZE")
 	@Getter @Setter
-	private Double batchSize;
+	private String batchSize;
 	
 	@JacksonXmlProperty(localName="BOIL_SIZE")
 	@Getter @Setter
-	private Double boilSize;
+	private String boilSize;
 	
 	@JacksonXmlProperty(localName="BOIL_TIME")
 	@Getter @Setter
-	private Double boilTime;
+	private String boilTime;
 	
 	@Percentage(friendlyName="Efficiency", tag="RECIPE/EFFICIENCY")
 	@JacksonXmlProperty(localName="EFFICIENCY")
 	@Getter @Setter
-	private Double efficiency;
+	private String efficiency;
 	
 	@JacksonXmlElementWrapper(localName="HOPS")
 	@JacksonXmlProperty(localName="HOP")
 	@Getter @Setter
 	private List<Hop> hops;
 	
-	@JacksonXmlElementWrapper(localName="FERMENTABLES")
-	@JacksonXmlProperty(localName="FERMENTABLE")
-	@Getter @Setter
-	private List<Fermentable> fermentables;
-	
-	@JacksonXmlElementWrapper(localName="MISCS")
-	@JacksonXmlProperty(localName="MISC")
-	@Getter @Setter
-	private List<Misc> miscs;
-	
-	@JacksonXmlElementWrapper(localName="YEASTS")
-	@JacksonXmlProperty(localName="YEAST")
-	@Getter @Setter
-	private List<Yeast> yeasts;
-	
-	@JacksonXmlElementWrapper(localName="WATERS")
-	@JacksonXmlProperty(localName="WATER")
-	@Getter @Setter
-	private List<Water> waters;
-	
-	@JacksonXmlProperty(localName="MASH")
-	@Getter @Setter
-	private Mash mash;
+//	@JacksonXmlElementWrapper(localName="FERMENTABLES")
+//	@JacksonXmlProperty(localName="FERMENTABLE")
+//	@Getter @Setter
+//	private List<Fermentable> fermentables;
+//	
+//	@JacksonXmlElementWrapper(localName="MISCS")
+//	@JacksonXmlProperty(localName="MISC")
+//	@Getter @Setter
+//	private List<Misc> miscs;
+//	
+//	@JacksonXmlElementWrapper(localName="YEASTS")
+//	@JacksonXmlProperty(localName="YEAST")
+//	@Getter @Setter
+//	private List<Yeast> yeasts;
+//	
+//	@JacksonXmlElementWrapper(localName="WATERS")
+//	@JacksonXmlProperty(localName="WATER")
+//	@Getter @Setter
+//	private List<Water> waters;
+//	
+//	@JacksonXmlProperty(localName="MASH")
+//	@Getter @Setter
+//	private Mash mash;
 	
 	@JacksonXmlProperty(localName="NOTES")
 	@Getter @Setter
@@ -101,51 +103,51 @@ public class Recipe extends BeerXMLElement {
 	@BjcpRating(friendlyName="Taste Rating", tag="RECIPE/TASTE_RATING")
 	@JacksonXmlProperty(localName="TASTE_RATING")
 	@Getter @Setter
-	private Double tasteRating;
+	private String tasteRating;
 	
 	@JacksonXmlProperty(localName="OG")
 	@Getter @Setter
-	private Double og;
+	private String og;
 	
 	@JacksonXmlProperty(localName="FG")
 	@Getter @Setter
-	private Double fg;
+	private String fg;
 	
 	@JacksonXmlProperty(localName="FERMENTATION_STAGES")
 	@Getter @Setter
-	private Integer fermentationStages;
+	private String fermentationStages;
 	
 	@JacksonXmlProperty(localName="PRIMARY_AGE")
 	@Getter @Setter
-	private Double primaryAge;
+	private String primaryAge;
 	
 	@JacksonXmlProperty(localName="PRIMARY_TEMP")
 	@Getter @Setter
-	private Double primaryTemp;
+	private String primaryTemp;
 	
 	@JacksonXmlProperty(localName="SECONDARY_AGE")
 	@Getter @Setter
-	private Double secondaryAge;
+	private String secondaryAge;
 	
 	@JacksonXmlProperty(localName="SECONDARY_TEMP")
 	@Getter @Setter
-	private Double secondaryTemp;
+	private String secondaryTemp;
 	
 	@JacksonXmlProperty(localName="TERTIARY_AGE")
 	@Getter @Setter
-	private Double tertiaryAge;
+	private String tertiaryAge;
 	
 	@JacksonXmlProperty(localName="TERTIARY_TEMP")
 	@Getter @Setter
-	private Double tertiaryTemp;
+	private String tertiaryTemp;
 	
 	@JacksonXmlProperty(localName="AGE")
 	@Getter @Setter
-	private Double age;
+	private String age;
 	
 	@JacksonXmlProperty(localName="AGE_TEMP")
 	@Getter @Setter
-	private Double ageTemp;
+	private String ageTemp;
 	
 	@JacksonXmlProperty(localName="DATE")
 	@Getter @Setter
@@ -153,11 +155,11 @@ public class Recipe extends BeerXMLElement {
 	
 	@JacksonXmlProperty(localName="CARBONATION")
 	@Getter @Setter
-	private Double carbonation;
+	private String carbonation;
 	
 	@JacksonXmlProperty(localName="FORCED_CARBONATION")
 	@Getter @Setter
-	private Boolean forcedCarbonation;
+	private String forcedCarbonation;
 	
 	@JacksonXmlProperty(localName="PRIMING_SUGAR_NAME")
 	@Getter @Setter
@@ -165,15 +167,15 @@ public class Recipe extends BeerXMLElement {
 	
 	@JacksonXmlProperty(localName="CARBONATION_TEMP")
 	@Getter @Setter
-	private Double carbonationTemp;
+	private String carbonationTemp;
 	
 	@JacksonXmlProperty(localName="PRIMING_SUGAR_EQUIV")
 	@Getter @Setter
-	private Double primingSugarEquiv;
+	private String primingSugarEquiv;
 	
 	@JacksonXmlProperty(localName="KEG_PRIMING_FACTOR")
 	@Getter @Setter
-	private Double kegPrimingFactor;
+	private String kegPrimingFactor;
 	
 	@JacksonXmlProperty(localName="EST_OG")
 	@Getter @Setter
@@ -189,7 +191,7 @@ public class Recipe extends BeerXMLElement {
 	
 	@JacksonXmlProperty(localName="IBU")
 	@Getter @Setter
-	private Double ibu;
+	private String ibu;
 	
 	@Selection(options={ "RAGER", "TINSETH", "GARETZ" }, friendlyName="IBU Method", tag="RECIPE/IBU_METHOD")
 	@JacksonXmlProperty(localName="IBU_METHOD")
@@ -199,17 +201,17 @@ public class Recipe extends BeerXMLElement {
 	@Percentage(friendlyName="Estimated ABV", tag="RECIPE/EST_ABV")
 	@JacksonXmlProperty(localName="EST_ABV")
 	@Getter @Setter
-	private Double estAbv;
+	private String estAbv;
 	
 	@Percentage(friendlyName="ABV", tag="RECIPE/ABV")
 	@JacksonXmlProperty(localName="ABV")
 	@Getter @Setter
-	private Double abv;
+	private String abv;
 	
 	@Percentage(friendlyName="Actual Efficiency", tag="RECIPE/ACTUAL_EFFICIENCY")
 	@JacksonXmlProperty(localName="ACTUAL_EFFICIENCY")
 	@Getter @Setter
-	private Double actualEfficiency;
+	private String actualEfficiency;
 	
 	@JacksonXmlProperty(localName="CALORIES")
 	@Getter @Setter

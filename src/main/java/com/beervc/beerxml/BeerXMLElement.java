@@ -1,6 +1,7 @@
 package com.beervc.beerxml;
 
 import java.lang.reflect.Field;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,20 +15,34 @@ public abstract class BeerXMLElement {
 	
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 	
+	@SuppressWarnings("unchecked")
 	public void validateBeerXML() throws InvalidBeerXmlException {
 		
 		for(Field field : this.getClass().getDeclaredFields()) {
+			field.setAccessible(true);
+			Object fieldValue;
+			
 			try {
-				if(field.get(this) == null) {
-					return;
+				fieldValue = field.get(this);
+				if(fieldValue == null) {
+					continue;
+				} else if(fieldValue instanceof BeerXMLElement) {
+					BeerXMLElement bxElement = (BeerXMLElement) fieldValue;
+					bxElement.validateBeerXML();
+				} else if(fieldValue instanceof List) {
+					for(Object child : (List<Object>) fieldValue) {
+						if(child instanceof BeerXMLElement) {
+							((BeerXMLElement) child).validateBeerXML();
+						}
+					}
 				}
 			} catch (IllegalArgumentException | IllegalAccessException e) {
 				logger.error("Failed to access field!", e);
 			}
-			
+			logger.info(field.getName());
 			if(field.isAnnotationPresent(Percentage.class)) {
 				try {
-					Double percentageValue = (Double) field.get(this);
+					Double percentageValue = Double.parseDouble(((String) field.get(this)).replace("%", ""));
 					Percentage percentageAnnotation = field.getAnnotation(Percentage.class);
 					BeerXmlUtils.validatePercentage(percentageValue, percentageAnnotation.friendlyName(),
 							percentageAnnotation.tag());
@@ -36,9 +51,9 @@ public abstract class BeerXMLElement {
 				} catch(ClassCastException e) {
 					logger.error("Non-Double field marked as percentage!", e);
 				}
-			}else if(field.isAnnotationPresent(BjcpRating.class)) {
+			} else if(field.isAnnotationPresent(BjcpRating.class)) {
 				try {
-					Double bjcpValue = (Double) field.get(this);
+					Double bjcpValue = Double.parseDouble(((String) field.get(this)));
 					BjcpRating bjcpRatingAnnotation = field.getAnnotation(BjcpRating.class);
 					BeerXmlUtils.validateBjcpRating(bjcpValue, bjcpRatingAnnotation.friendlyName(),
 							bjcpRatingAnnotation.tag());
@@ -47,14 +62,20 @@ public abstract class BeerXMLElement {
 				} catch(ClassCastException e) {
 					logger.error("Non-Double field marked as BJCP Rating!", e);
 				}
-			}else if(field.isAnnotationPresent(Selection.class)) {
+			} else if(field.isAnnotationPresent(Selection.class)) {
 				try {
 					String selectedValue = (String) field.get(this);
 					Selection selectionAnnotation = field.getAnnotation(Selection.class);
+					
+					boolean validValue = false;
 					for(String option : selectionAnnotation.options()) {
 						if(selectedValue.equalsIgnoreCase(option)) {
-							return;
+							validValue = true;
+							break;
 						}
+					}
+					if(validValue) {
+						continue;
 					}
 					throw new InvalidBeerXmlException(
 							String.format("%s (%s) must be one of the following: %s (Found: %s)",

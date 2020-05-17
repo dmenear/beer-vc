@@ -10,7 +10,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @JacksonXmlRootElement(localName="RECIPES")
-public class Recipes {
+public class Recipes extends BeerXMLElement {
 
 	@JacksonXmlElementWrapper(useWrapping=false)
 	@JacksonXmlProperty(localName="RECIPE")

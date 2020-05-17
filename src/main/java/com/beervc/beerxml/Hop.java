@@ -2,14 +2,16 @@ package com.beervc.beerxml;
 
 import com.beervc.beerxml.annotations.Percentage;
 import com.beervc.beerxml.annotations.Selection;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 
 import lombok.Getter;
 import lombok.Setter;
 
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 @JacksonXmlRootElement(localName="HOP")
-public class Hop {
+public class Hop extends BeerXMLElement {
 
 	@JacksonXmlProperty(localName="NAME")
 	@Getter @Setter
@@ -17,16 +19,16 @@ public class Hop {
 	
 	@JacksonXmlProperty(localName="VERSION")
 	@Getter @Setter
-	private Integer version;
+	private String version;
 	
 	@Percentage(friendlyName="Alpha", tag="HOP/ALPHA")
 	@JacksonXmlProperty(localName="ALPHA")
 	@Getter @Setter
-	private Double alpha;
+	private String alpha;
 	
 	@JacksonXmlProperty(localName="AMOUNT")
 	@Getter @Setter
-	private Double amount;
+	private String amount;
 	
 	@Selection(options={ "BOIL", "DRY HOP", "MASH", "FIRST WORT", "AROMA" },
 			friendlyName="Hop Use", tag="HOP/USE")
@@ -36,7 +38,7 @@ public class Hop {
 	
 	@JacksonXmlProperty(localName="TIME")
 	@Getter @Setter
-	private Double time;
+	private String time;
 	
 	@JacksonXmlProperty(localName="NOTES")
 	@Getter @Setter
@@ -55,12 +57,12 @@ public class Hop {
 	@Percentage(friendlyName="Beta", tag="HOP/BETA")
 	@JacksonXmlProperty(localName="BETA")
 	@Getter @Setter
-	private Double beta;
+	private String beta;
 	
 	@Percentage(friendlyName="HSI", tag="HOP/HSI")
 	@JacksonXmlProperty(localName="HSI")
 	@Getter @Setter
-	private Double hsi;
+	private String hsi;
 	
 	@JacksonXmlProperty(localName="ORIGIN")
 	@Getter @Setter
@@ -73,22 +75,22 @@ public class Hop {
 	@Percentage(friendlyName="Humulene", tag="HOP/HUMULENE")
 	@JacksonXmlProperty(localName="HUMULENE")
 	@Getter @Setter
-	private Double humulene;
+	private String humulene;
 	
 	@Percentage(friendlyName="Caryophyllene", tag="HOP/CARYOPHYLLENE")
 	@JacksonXmlProperty(localName="CARYOPHYLLENE")
 	@Getter @Setter
-	private Double caryophyllene;
+	private String caryophyllene;
 	
 	@Percentage(friendlyName="Cohumulone", tag="HOP/COHUMULONE")
 	@JacksonXmlProperty(localName="COHUMULONE")
 	@Getter @Setter
-	private Double cohumulone;
+	private String cohumulone;
 	
 	@Percentage(friendlyName="Myrcene", tag="HOP/MYRCENE")
 	@JacksonXmlProperty(localName="MYRCENE")
 	@Getter @Setter
-	private Double myrcene;
+	private String myrcene;
 	
 	@JacksonXmlProperty(localName="DISPLAY_AMOUNT")
 	@Getter @Setter
