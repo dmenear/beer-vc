@@ -2,7 +2,9 @@ package com.beervc.beerxml;
 
 import java.util.List;
 
-import com.beervc.beerxml.utils.BeerXmlUtils;
+import com.beervc.beerxml.annotations.BjcpRating;
+import com.beervc.beerxml.annotations.Percentage;
+import com.beervc.beerxml.annotations.Selection;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
@@ -11,7 +13,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @JacksonXmlRootElement(localName="RECIPE")
-public class Recipe {
+public class Recipe extends BeerXMLElement {
 	
 	@JacksonXmlProperty(localName="NAME")
 	@Getter @Setter
@@ -21,8 +23,9 @@ public class Recipe {
 	@Getter @Setter
 	private Integer version;
 	
+	@Selection(options={ "EXTRACT", "PARTIAL MASH", "ALL GRAIN" }, friendlyName="Recipe Type", tag="RECIPE/TYPE")
 	@JacksonXmlProperty(localName="TYPE")
-	@Getter
+	@Getter @Setter
 	private String type;
 	
 	@JacksonXmlProperty(localName="STYLE")
@@ -53,8 +56,9 @@ public class Recipe {
 	@Getter @Setter
 	private Double boilTime;
 	
+	@Percentage(friendlyName="Efficiency", tag="RECIPE/EFFICIENCY")
 	@JacksonXmlProperty(localName="EFFICIENCY")
-	@Getter
+	@Getter @Setter
 	private Double efficiency;
 	
 	@JacksonXmlElementWrapper(localName="HOPS")
@@ -94,7 +98,9 @@ public class Recipe {
 	@Getter @Setter
 	private String tasteNotes;
 	
-	@Getter
+	@BjcpRating(friendlyName="Taste Rating", tag="RECIPE/TASTE_RATING")
+	@JacksonXmlProperty(localName="TASTE_RATING")
+	@Getter @Setter
 	private Double tasteRating;
 	
 	@JacksonXmlProperty(localName="OG")
@@ -185,20 +191,24 @@ public class Recipe {
 	@Getter @Setter
 	private Double ibu;
 	
+	@Selection(options={ "RAGER", "TINSETH", "GARETZ" }, friendlyName="IBU Method", tag="RECIPE/IBU_METHOD")
 	@JacksonXmlProperty(localName="IBU_METHOD")
-	@Getter
+	@Getter @Setter
 	private String ibuMethod;
 	
+	@Percentage(friendlyName="Estimated ABV", tag="RECIPE/EST_ABV")
 	@JacksonXmlProperty(localName="EST_ABV")
-	@Getter
+	@Getter @Setter
 	private Double estAbv;
 	
+	@Percentage(friendlyName="ABV", tag="RECIPE/ABV")
 	@JacksonXmlProperty(localName="ABV")
-	@Getter
+	@Getter @Setter
 	private Double abv;
 	
+	@Percentage(friendlyName="Actual Efficiency", tag="RECIPE/ACTUAL_EFFICIENCY")
 	@JacksonXmlProperty(localName="ACTUAL_EFFICIENCY")
-	@Getter
+	@Getter @Setter
 	private Double actualEfficiency;
 	
 	@JacksonXmlProperty(localName="CALORIES")
@@ -245,32 +255,4 @@ public class Recipe {
 	@Getter @Setter
 	private String displayCarbTemp;
 
-	public void setType(String type) {
-		this.type = BeerXmlUtils.validateRecipeType(type, "Recipe type", "RECIPE/TYPE");
-	}
-
-	public void setEfficiency(Double efficiency) {
-		this.efficiency = BeerXmlUtils.validatePercentage(efficiency, "Efficiency", "RECIPE/EFFICIENCY");
-	}
-
-	public void setTasteRating(Double tasteRating) {
-		this.tasteRating = BeerXmlUtils.validateBjcpRating(tasteRating, "Taste rating", "RECIPE/TASTE_RATING");
-	}
-
-	public void setIbuMethod(String ibuMethod) {
-		this.ibuMethod = BeerXmlUtils.validateIbuMethod(ibuMethod, "Ibu method", "RECIPE/IBU_METHOD");
-	}
-
-	public void setEstAbv(Double estAbv) {
-		this.estAbv = BeerXmlUtils.validatePercentage(estAbv, "Estimated ABV", "RECIPE/EST_ABV");
-	}
-
-	public void setAbv(Double abv) {
-		this.abv = BeerXmlUtils.validatePercentage(abv, "ABV", "RECIPE/ABV");
-	}
-
-	public void setActualEfficiency(Double actualEfficiency) {
-		this.actualEfficiency = BeerXmlUtils.validatePercentage(actualEfficiency, "Actual efficiency",
-				"RECIPE/ACTUAL_EFFICIENCY");
-	}
 }

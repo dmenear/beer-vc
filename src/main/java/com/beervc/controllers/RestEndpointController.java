@@ -1,4 +1,4 @@
-package com.beervc.controller;
+package com.beervc.controllers;
 
 import java.io.IOException;
 

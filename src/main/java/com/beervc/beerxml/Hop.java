@@ -1,6 +1,7 @@
 package com.beervc.beerxml;
 
-import com.beervc.beerxml.utils.BeerXmlUtils;
+import com.beervc.beerxml.annotations.Percentage;
+import com.beervc.beerxml.annotations.Selection;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 
@@ -18,16 +19,19 @@ public class Hop {
 	@Getter @Setter
 	private Integer version;
 	
+	@Percentage(friendlyName="Alpha", tag="HOP/ALPHA")
 	@JacksonXmlProperty(localName="ALPHA")
-	@Getter
+	@Getter @Setter
 	private Double alpha;
 	
 	@JacksonXmlProperty(localName="AMOUNT")
 	@Getter @Setter
 	private Double amount;
 	
+	@Selection(options={ "BOIL", "DRY HOP", "MASH", "FIRST WORT", "AROMA" },
+			friendlyName="Hop Use", tag="HOP/USE")
 	@JacksonXmlProperty(localName="USE")
-	@Getter
+	@Getter @Setter
 	private String use;
 	
 	@JacksonXmlProperty(localName="TIME")
@@ -38,20 +42,24 @@ public class Hop {
 	@Getter @Setter
 	private String notes;
 	
+	@Selection(options={ "BITTERING", "AROMA", "BOTH" }, friendlyName="Hop Type", tag="HOP/TYPE")
 	@JacksonXmlProperty(localName="TYPE")
-	@Getter
+	@Getter @Setter
 	private String type;
 	
+	@Selection(options={ "PELLET", "PLUG", "LEAF" }, friendlyName="Hop Form", tag="HOP/FORM")
 	@JacksonXmlProperty(localName="FORM")
-	@Getter
+	@Getter @Setter
 	private String form;
 	
+	@Percentage(friendlyName="Beta", tag="HOP/BETA")
 	@JacksonXmlProperty(localName="BETA")
-	@Getter
+	@Getter @Setter
 	private Double beta;
 	
+	@Percentage(friendlyName="HSI", tag="HOP/HSI")
 	@JacksonXmlProperty(localName="HSI")
-	@Getter
+	@Getter @Setter
 	private Double hsi;
 	
 	@JacksonXmlProperty(localName="ORIGIN")
@@ -62,20 +70,24 @@ public class Hop {
 	@Getter @Setter
 	private String substitutes;
 	
+	@Percentage(friendlyName="Humulene", tag="HOP/HUMULENE")
 	@JacksonXmlProperty(localName="HUMULENE")
-	@Getter
+	@Getter @Setter
 	private Double humulene;
 	
+	@Percentage(friendlyName="Caryophyllene", tag="HOP/CARYOPHYLLENE")
 	@JacksonXmlProperty(localName="CARYOPHYLLENE")
-	@Getter
+	@Getter @Setter
 	private Double caryophyllene;
 	
+	@Percentage(friendlyName="Cohumulone", tag="HOP/COHUMULONE")
 	@JacksonXmlProperty(localName="COHUMULONE")
-	@Getter
+	@Getter @Setter
 	private Double cohumulone;
 	
+	@Percentage(friendlyName="Myrcene", tag="HOP/MYRCENE")
 	@JacksonXmlProperty(localName="MYRCENE")
-	@Getter
+	@Getter @Setter
 	private Double myrcene;
 	
 	@JacksonXmlProperty(localName="DISPLAY_AMOUNT")
@@ -89,46 +101,5 @@ public class Hop {
 	@JacksonXmlProperty(localName="DISPLAY_TIME")
 	@Getter @Setter
 	private String displayTime;
-
-	public void setAlpha(Double alpha) {
-		this.alpha = BeerXmlUtils.validatePercentage(alpha, "Alpha", "HOP/ALPHA");
-	}
-
-	public void setUse(String use) {
-		this.use = BeerXmlUtils.validateHopUse(use, "Hop use", "HOP/USE");
-	}
-
-	public void setType(String type) {
-		this.type = BeerXmlUtils.validateHopType(type, "Hop type", "HOP/TYPE");
-	}
-
-	public void setForm(String form) {
-		this.form = BeerXmlUtils.validateHopForm(form, "Hop form", "HOP/FORM");;
-	}
-
-	public void setBeta(Double beta) {
-		this.beta = BeerXmlUtils.validatePercentage(beta, "Beta", "HOP/BETA");
-	}
-
-	public void setHsi(Double hsi) {
-		this.hsi = BeerXmlUtils.validatePercentage(hsi, "HSI", "HOP/HSI");
-	}
-
-	public void setHumulene(Double humulene) {
-		this.humulene = BeerXmlUtils.validatePercentage(humulene, "Humulene", "HOP/HUMULENE");
-	}
-
-	public void setCaryophyllene(Double caryophyllene) {
-		this.caryophyllene = BeerXmlUtils.validatePercentage(caryophyllene, "Caryophellene", "HOP/CARYOPHYLLENE");
-	}
-
-	public void setCohumulone(Double cohumulone) {
-		this.cohumulone = BeerXmlUtils.validatePercentage(cohumulone, "Cohumulone", "HOP/COHUMULONE");
-	}
-
-	public void setMyrcene(Double myrcene) {
-		this.myrcene = BeerXmlUtils.validatePercentage(myrcene, "Myrecene", "HOP/MYRCENE");
-	}
-	
 	
 }

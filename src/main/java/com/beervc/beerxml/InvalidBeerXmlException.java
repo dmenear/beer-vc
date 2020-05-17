@@ -1,7 +1,7 @@
 package com.beervc.beerxml;
 
 @SuppressWarnings("serial")
-public class InvalidBeerXmlException extends RuntimeException {
+public class InvalidBeerXmlException extends Exception {
 
 	public InvalidBeerXmlException() {
 		super();
