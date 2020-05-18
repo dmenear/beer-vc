@@ -9,12 +9,12 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 import lombok.Getter;
 import lombok.Setter;
 
-@JacksonXmlRootElement(localName="RECIPES")
-public class Recipes extends BeerXmlElement {
+@JacksonXmlRootElement(localName="MISCS")
+public class Miscs extends BeerXmlElement {
 
 	@JacksonXmlElementWrapper(useWrapping=false)
-	@JacksonXmlProperty(localName="RECIPE")
+	@JacksonXmlProperty(localName="MISC")
 	@Getter @Setter
-	private List<Recipe> recipes;
+	private List<Misc> miscs;
 	
 }

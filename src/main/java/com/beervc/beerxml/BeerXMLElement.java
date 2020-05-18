@@ -11,7 +11,7 @@ import com.beervc.beerxml.annotations.Percentage;
 import com.beervc.beerxml.annotations.Selection;
 import com.beervc.beerxml.utils.BeerXmlUtils;
 
-public abstract class BeerXMLElement {
+public abstract class BeerXmlElement {
 	
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 	
@@ -26,20 +26,19 @@ public abstract class BeerXMLElement {
 				fieldValue = field.get(this);
 				if(fieldValue == null) {
 					continue;
-				} else if(fieldValue instanceof BeerXMLElement) {
-					BeerXMLElement bxElement = (BeerXMLElement) fieldValue;
+				} else if(fieldValue instanceof BeerXmlElement) {
+					BeerXmlElement bxElement = (BeerXmlElement) fieldValue;
 					bxElement.validateBeerXML();
 				} else if(fieldValue instanceof List) {
 					for(Object child : (List<Object>) fieldValue) {
-						if(child instanceof BeerXMLElement) {
-							((BeerXMLElement) child).validateBeerXML();
+						if(child instanceof BeerXmlElement) {
+							((BeerXmlElement) child).validateBeerXML();
 						}
 					}
 				}
 			} catch (IllegalArgumentException | IllegalAccessException e) {
 				logger.error("Failed to access field!", e);
 			}
-			logger.info(field.getName());
 			if(field.isAnnotationPresent(Percentage.class)) {
 				try {
 					Double percentageValue = Double.parseDouble(((String) field.get(this)).replace("%", ""));

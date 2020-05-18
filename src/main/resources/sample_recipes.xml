@@ -954,8 +954,6 @@ Use for: Bock, Porter, Marzen, Oktoberfest beers</NOTES>
 </YEAST>
 </YEASTS>
 
- <WATERS>
-</WATERS>
 
  <STYLE>
  <NAME>Robust Porter</NAME>
@@ -1255,8 +1253,6 @@ Examples: Belgian White beer, Wit</NOTES>
 </YEAST>
 </YEASTS>
 
- <WATERS>
-</WATERS>
 
  <STYLE>
  <NAME>Witbier</NAME>
